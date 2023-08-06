@@ -1,1 +1,1 @@
-# wanted-pre-onboarding-backend
+# 원티드 인턴쉽 사전 과제
