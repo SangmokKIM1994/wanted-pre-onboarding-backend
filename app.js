@@ -1,6 +1,6 @@
 const dotenv = require("dotenv");
 const express = require("express");
-const router = require("./index")
+const router = require("./src/index");
 const app = express();
 
 dotenv.config();
@@ -16,6 +16,7 @@ app.use((error, req, res, next) => {
 });
 
 const PORT = process.env.PORT || 3000;
+
 
 app.listen(PORT, () => {
   console.log(`${PORT}번 포트로 서버가 열렸습니다.`);
