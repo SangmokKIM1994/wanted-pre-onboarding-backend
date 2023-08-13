@@ -1,12 +1,10 @@
-const {User} =require("../models")
+const { Users } = require("../models");
 
-class UserRepository{
-
-    signUp = async ({email, password}) => {
-        const makeUser = await User.create({email, password})
-        return makeUser
-    }
-
+class UserRepository {
+  signUp = async ({ email, password }) => {
+    const makeUser = await Users.create({ email, password });
+    return makeUser;
+  };
 }
 
-module.exports = UserRepository
+module.exports = UserRepository;
