@@ -6,7 +6,7 @@ const validation = {
   signUpAndLoginCheck: async (req, res, next) => {
     const schema = Joi.object().keys({
       email: Joi.string()
-        .email()
+        .regex(/.*@.*/)
         .required()
         .error(
           new makeError({
