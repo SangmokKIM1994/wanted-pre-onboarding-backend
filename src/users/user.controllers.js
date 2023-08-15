@@ -18,15 +18,15 @@ class UserController {
   };
 
   login = async (req, res, next) => {
-    const { email, password } = req.body;
     try {
+      const { email, password } = req.body;
       const user = await this.userService.login({ email, password });
-      const { accessToken, email } = user;
+      const { accessToken } = user;
 
       res.status(200).json({
         message: "로그인에 성공하였습니다.",
         accessToken,
-        email,
+        email: user.email,
       });
     } catch (error) {
       next(error);
