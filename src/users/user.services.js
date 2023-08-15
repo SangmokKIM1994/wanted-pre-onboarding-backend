@@ -1,12 +1,13 @@
 const UserRepository = require("./user.repositories");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { makeError } = require("../error");
 
 class UserService {
   userRepository = new UserRepository();
 
   signUp = async ({ email, password }) => {
-    const hashedPw = await bcrypt.hash(password, Number(process.env.HASH_KEY));
+    const hashedPw = await bcrypt.hash(password, Number(process.env.HASHKEY));
     const user = await this.userRepository.signUp({
       email,
       password: hashedPw,
@@ -34,7 +35,7 @@ class UserService {
     );
 
     return {
-      nickname: user.nickname,
+      email: user.email,
       accessToken,
     };
   };
