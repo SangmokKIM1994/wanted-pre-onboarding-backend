@@ -28,11 +28,9 @@ class UserService {
       });
     }
 
-    const accessToken = jwt.sign(
-      { userId: user.userId },
-      process.env.ACCESS_SECRET_KEY,
-      { expiresIn: "1h" }
-    );
+    const accessToken = jwt.sign({ userId: user.userId }, process.env.JWTKEY, {
+      expiresIn: "1h",
+    });
 
     return {
       email: user.email,
@@ -41,4 +39,4 @@ class UserService {
   };
 }
 
-module.exporst = UserService;
+module.exports = UserService;
