@@ -9,7 +9,7 @@ const postController = new PostController();
 router.post("/", authMiddleWare, postController.createPost);
 router.get("/", postController.getPaginatedPosts);
 router.get("/:postId", postController.getOnePost);
-// router.patch("/:postId");
-// router.delete("/:postId");
+router.patch("/:postId", authMiddleWare, postController.editTitleOrContent);
+router.delete("/:postId", authMiddleWare, postController.deletePost);
 
 module.exports = router;

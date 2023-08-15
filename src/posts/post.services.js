@@ -33,6 +33,60 @@ class PostService {
     }
     return post;
   };
+
+  editTitleOrContent = async ({ userId, postId, title, content }) => {
+    const post = this.postRepository.getOnePost({ postId });
+    if (!post) {
+      throw new makeError({
+        message: `${postId}번 게시글이 없습니다.`,
+        code: 400,
+      });
+    }
+    if (userId !== post.userId) {
+      throw new makeError({
+        message: "게시글 수정 권한이 없습니다.",
+        code: 400,
+      });
+    }
+
+    if (!content) {
+      if (title == post.title) {
+        throw new makeError({
+          message: "제목이 같습니다.",
+          code: 400,
+        });
+      }
+      await this.postRepository.editTitle({ postId, title });
+    } else if (!title) {
+      if (content == post.content) {
+        throw new makeError({
+          message: "내용이 같습니다",
+          code: 400,
+        });
+      }
+      await this.postRepository.editContent({ postId, content });
+    }
+    return;
+  };
+
+  deletePost = async ({ userId, postId }) => {
+    const post = await this.postRepository.getOnePost({ postId });
+    if (!post) {
+      throw new makeError({
+        message: `${postId}번 게시글이 없습니다.`,
+        code: 400,
+      });
+    }
+    if (userId !== post.userId) {
+      throw new makeError({
+        message: "게시글 삭제 권한이 없습니다.",
+        code: 400,
+      });
+    }
+
+    await this.postRepository.deletePost({ postId });
+    return;
+  };
 }
 
 module.exports = PostService;
