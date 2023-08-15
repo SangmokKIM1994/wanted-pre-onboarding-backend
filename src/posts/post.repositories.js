@@ -16,6 +16,11 @@ class PostRepository {
     });
     return posts;
   };
+
+  getOnePost = async ({postId}) => {
+    const post = Post.findOne({where:{postId}})
+    return post
+  }
 }
 
 module.exports = PostRepository;

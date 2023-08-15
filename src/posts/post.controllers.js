@@ -28,6 +28,16 @@ class PostController {
       next(error);
     }
   };
+
+  getOnePost = async (req, res, next) => {
+    try {
+      const { postId } = req.params;
+      const post = this.postService.getOnePost({ postId });
+      res.status(200).json({ message: "게시글 조회 성공", post });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 module.exports = PostController;

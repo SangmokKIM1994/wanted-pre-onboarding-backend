@@ -14,7 +14,24 @@ class PostService {
 
   getPaginatedPosts = async ({ page }) => {
     const posts = this.postRepository.getPaginatedPosts({ page });
+    if (!posts) {
+      throw new makeError({
+        message: `${page}페이지의 게시글이 없습니다`,
+        code: 400,
+      });
+    }
     return posts;
+  };
+
+  getOnePost = async ({ postId }) => {
+    const post = this.postRepository.getOnePost({ postId });
+    if (!post) {
+      throw new makeError({
+        message: `${postId}번 게시글이 없습니다.`,
+        code: 400,
+      });
+    }
+    return post;
   };
 }
 
