@@ -1,14 +1,14 @@
 const express = require("express");
 const router = express.Router();
 
-// const UserRouter = require("./users")
-// const PostRouter = require("./posts")
+const UserRouter = require("./users/user.routes");
+const PostRouter = require("./posts/post.routes")
 
-// router.use("/user", UserRouter);
-// router.use("/post", PostRouter);
+router.use("/", UserRouter);
+router.use("/post", PostRouter);
 
 router.get("/", (req, res) => {
-    res.send("서버 연결이 완료되었습니다.");
-  });
+  res.send("서버 연결이 완료되었습니다.");
+});
 
 module.exports = router;
