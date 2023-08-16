@@ -17,7 +17,7 @@ class PostService {
     if (posts.length === 0) {
       throw new makeError({
         message: `${page}페이지의 게시글이 없습니다`,
-        code: 400,
+        code: 404,
       });
     }
     return posts;
@@ -28,7 +28,7 @@ class PostService {
     if (!post) {
       throw new makeError({
         message: `${postId}번 게시글이 없습니다.`,
-        code: 400,
+        code: 404,
       });
     }
     return post;
@@ -39,7 +39,7 @@ class PostService {
     if (!post) {
       throw new makeError({
         message: `${postId}번 게시글이 없습니다.`,
-        code: 400,
+        code: 404,
       });
     }
     if (userId !== post.userId) {
@@ -65,6 +65,20 @@ class PostService {
         });
       }
       await this.postRepository.editContent({ postId, content });
+    } else if (title && content) {
+      if (title == post.title) {
+        throw new makeError({
+          message: "제목이 같습니다.",
+          code: 400,
+        });
+      }
+      if (content == post.content) {
+        throw new makeError({
+          message: "내용이 같습니다",
+          code: 400,
+        });
+      }
+      await this.postRepository.editTitleAndContent({ postId, title, content });
     }
     return;
   };
@@ -74,7 +88,7 @@ class PostService {
     if (!post) {
       throw new makeError({
         message: `${postId}번 게시글이 없습니다.`,
-        code: 400,
+        code: 404,
       });
     }
     if (userId !== post.userId) {
