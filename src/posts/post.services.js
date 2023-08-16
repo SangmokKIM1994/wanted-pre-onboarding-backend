@@ -13,8 +13,8 @@ class PostService {
   };
 
   getPaginatedPosts = async ({ page }) => {
-    const posts = this.postRepository.getPaginatedPosts({ page });
-    if (!posts) {
+    const posts = await this.postRepository.getPaginatedPosts({ page });
+    if (posts.length === 0) {
       throw new makeError({
         message: `${page}페이지의 게시글이 없습니다`,
         code: 400,
@@ -24,7 +24,7 @@ class PostService {
   };
 
   getOnePost = async ({ postId }) => {
-    const post = this.postRepository.getOnePost({ postId });
+    const post = await this.postRepository.getOnePost({ postId });
     if (!post) {
       throw new makeError({
         message: `${postId}번 게시글이 없습니다.`,
@@ -35,7 +35,7 @@ class PostService {
   };
 
   editTitleOrContent = async ({ userId, postId, title, content }) => {
-    const post = this.postRepository.getOnePost({ postId });
+    const post = await this.postRepository.getOnePost({ postId });
     if (!post) {
       throw new makeError({
         message: `${postId}번 게시글이 없습니다.`,

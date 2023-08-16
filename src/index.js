@@ -2,10 +2,10 @@ const express = require("express");
 const router = express.Router();
 
 const UserRouter = require("./users/user.routes");
-// const PostRouter = require("./posts")
+const PostRouter = require("./posts/post.routes")
 
 router.use("/", UserRouter);
-// router.use("/post", PostRouter);
+router.use("/post", PostRouter);
 
 router.get("/", (req, res) => {
   res.send("서버 연결이 완료되었습니다.");

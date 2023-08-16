@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const { Users } = require("../../db/models");
+const { Users } = require("../models");
 require("dotenv").config();
 const { JWTKEY } = process.env;
 
@@ -14,7 +14,7 @@ module.exports = async (req, res, next) => {
   try {
     const decodedToken = jwt.verify(token, JWTKEY);
     const userId = decodedToken.userId;
-    const user = await Users.findOne({ where: { email: userId } });
+    const user = await Users.findOne({ where: { userId } });
     if (!user) {
       return res
         .status(401)

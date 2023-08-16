@@ -22,7 +22,7 @@ class PostController {
   getPaginatedPosts = async (req, res, next) => {
     try {
       const { page } = req.query;
-      const posts = this.postService.getPaginatedPosts({ page });
+      const posts = await this.postService.getPaginatedPosts({ page });
       res.status(200).json({ message: `${page}페이지 조회 성공`, posts });
     } catch (error) {
       next(error);
@@ -32,7 +32,7 @@ class PostController {
   getOnePost = async (req, res, next) => {
     try {
       const { postId } = req.params;
-      const post = this.postService.getOnePost({ postId });
+      const post = await this.postService.getOnePost({ postId });
       res.status(200).json({ message: "게시글 조회 성공", post });
     } catch (error) {
       next(error);
