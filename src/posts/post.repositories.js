@@ -8,11 +8,12 @@ class PostRepository {
 
   getPaginatedPosts = async ({ page }) => {
     const limit = 5;
-    const offset = (page - 1) * group;
+    const offset = (page - 1) * limit;
     const posts = await Posts.findAll({
-      attributes: [title, content],
+      attributes: ["title", "content"],
       limit: limit,
       offset: offset,
+      raws: true,
     });
     return posts;
   };
@@ -33,7 +34,7 @@ class PostRepository {
   };
 
   deletePost = async ({ postId }) => {
-    await Posts.delete({ where: { postId } });
+    await Posts.destroy({ where: { postId } });
     return;
   };
 }
