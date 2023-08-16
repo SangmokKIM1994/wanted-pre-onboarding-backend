@@ -33,6 +33,11 @@ class PostRepository {
     return;
   };
 
+  editTitleAndContent = async ({ postId, title, content }) => {
+    await Posts.update({ title, content }, { where: { postId } });
+    return;
+  };
+
   deletePost = async ({ postId }) => {
     await Posts.destroy({ where: { postId } });
     return;
