@@ -7,6 +7,10 @@ class UserService {
   userRepository = new UserRepository();
 
   signUp = async ({ email, password }) => {
+    const findUser = await this.userRepository.findByEmail({ email });
+    if (findUser) {
+      throw new makeError({ message: "중복된 email입니다.", code: 400 });
+    }
     const hashedPw = await bcrypt.hash(password, Number(process.env.HASHKEY));
     const user = await this.userRepository.signUp({
       email,
